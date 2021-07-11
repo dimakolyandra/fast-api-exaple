@@ -1,10 +1,11 @@
+import os
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 
-SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://async_web_service_admin:async_web_service_admin@db/async_web_service"
+SQLALCHEMY_DATABASE_URL = os.getenv("SQLALCHEMY_DB_CONNECT_STRING")
 
 engine = create_async_engine(SQLALCHEMY_DATABASE_URL, pool_size=450, max_overflow=30)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, expire_on_commit=False, class_=AsyncSession)
